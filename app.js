@@ -58,8 +58,6 @@ function toast(msg) {
 }
 
 // ── Login ─────────────────────────────────────────────────
-// REEMPLAZAR SOLO la función doLogin() en app.js
-// Busca "function doLogin()" y reemplaza todo el bloque hasta el cierre }
 
 function doLogin() {
   const u = document.getElementById("inputUser").value.trim();
@@ -84,7 +82,7 @@ function doLogin() {
     badge = document.createElement("div");
     badge.id = "sessionBadge";
     badge.style.cssText = `
-      position:fixed; top:12px; right:16px; z-index:9999;
+      position:fixed; bottom:70px; right:16px; z-index:9999;
       background:${color}; color:#fff; font-size:13px; font-weight:bold;
       padding:6px 14px; border-radius:20px; box-shadow:0 2px 8px rgba(0,0,0,0.3);
     `;
