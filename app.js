@@ -19,7 +19,6 @@ const VIEWS = ["viewLogin","viewCatalog","viewDetail","viewAdmin"];
 
 // ── Navegación ────────────────────────────────────────────
 function navigate(name) {
-  // Ocultar todo
   document.getElementById("viewLogin").classList.add("hidden");
   document.getElementById("appShell").classList.add("hidden");
   document.getElementById("viewCatalog").classList.add("hidden");
@@ -31,18 +30,27 @@ function navigate(name) {
     return;
   }
 
-  // Mostrar shell (sidebar se maneja por CSS media query)
   document.getElementById("appShell").classList.remove("hidden");
   document.getElementById("viewLogin").classList.add("hidden");
 
-  // Mostrar la vista correcta
   const viewId = { catalog:"viewCatalog", detail:"viewDetail", admin:"viewAdmin" }[name];
   if (viewId) document.getElementById(viewId).classList.remove("hidden");
 
-  // Actualizar sidebar activo
   document.querySelectorAll(".sidebar__item").forEach(i => i.classList.remove("active"));
   if (name === "catalog") { document.getElementById("sideInicio").classList.add("active"); document.getElementById("sideCursos").classList.add("active"); }
   if (name === "admin")   { document.getElementById("sideInicio").classList.add("active"); }
+
+  // Botón Back
+  let backBtn = document.getElementById("globalBack");
+  if (!backBtn) {
+    backBtn = document.createElement("button");
+    backBtn.id = "globalBack";
+    backBtn.textContent = "← Atrás";
+    backBtn.style.cssText = "position:fixed;top:12px;left:12px;z-index:9999;background:#003d6b;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:bold;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);";
+    backBtn.onclick = () => history.back();
+    document.body.appendChild(backBtn);
+  }
+  backBtn.style.display = (name === "catalog" || name === "admin") ? "none" : "block";
 
   window.scrollTo(0, 0);
 }
